@@ -10,3 +10,4 @@ C:\Users\opilane\source\repos\cinema\cinema\obj\Debug\cinema.exe
 C:\Users\opilane\source\repos\cinema\cinema\obj\Debug\cinema.pdb
 C:\Users\opilane\source\repos\cinema\cinema\bin\Debug\AppData\kino.mdf
 C:\Users\opilane\source\repos\cinema\cinema\bin\Debug\AppData\kino_log.ldf
+C:\Users\opilane\Source\Repos\cinema\cinema\obj\Debug\cinema.Saalid.resources

@@ -32,53 +32,22 @@ namespace cinema
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string text = "";
-            StreamWriter to_file;
-            if (!File.Exists("Kino.txt"))
-            {
-                to_file = new StreamWriter("Kino.txt", false);
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        text += i + "," + j + ",false;";
-                    }
-                    text += "\n";
-                }
-                to_file.Write(text);
-                to_file.Close();
-            }
-            StreamReader from_file = new StreamReader("kins.txt", false);
-            string[] arr = from_file.ReadToEnd().Split('\n');
-            from_file.Close();
-
-            this.Size = new Size(300, 430);
-            this.Text = "Ap_polo_kino";
-            //this.BackgroundImage = Image.FromFile("Images/images.jpg");
             for (int i = 0; i < 4; i++)
             {
                 read[i] = new Label();
                 read[i].Text = "Rida " + (i + 1);
-                read[i].Size = new Size(50, 50);
-                read[i].Location = new Point(1, i * 50);
+                read[i].Size = new Size(70, 70);
+                read[i].Location = new Point(1, i * 70);
                 this.Controls.Add(read[i]);
                 for (int j = 0; j < 4; j++)
                 {
                     _arr[i, j] = new Label();
-                    string[] arv = arr[i].Split(';');
-                    string[] ardNum = arv[j].Split(',');
-                    if (ardNum[2] == "true")
-                    {
-                        _arr[i, j].BackColor = Color.Red;
-                    }
-                    else
-                    {
-                        _arr[i, j].BackColor = Color.Green;
-                    }
                     _arr[i, j].Text = " Koht" + (j + 1);//"Rida " + i +
-                    _arr[i, j].Size = new Size(50, 50);
+                    _arr[i, j].Size = new Size(70, 70);
+                    _arr[i, j].BackColor = Color.Green;
+                    _arr[i, j].Image = Image.FromFile("../../Image/tool.jpg");
                     _arr[i, j].BorderStyle = BorderStyle.Fixed3D;
-                    _arr[i, j].Location = new Point(j * 50 + 50, i * 50);
+                    _arr[i, j].Location = new Point(j * 70 + 70, i * 70);
                     this.Controls.Add(_arr[i, j]);
                     _arr[i, j].Tag = new int[] { i, j };
                     _arr[i, j].Click += new System.EventHandler(Form1_Click);
@@ -94,22 +63,6 @@ namespace cinema
             kinni.Location = new Point(150, 200);
             this.Controls.Add(kinni);
             kinni.Click += Kinni_Click;
-        }
-
-        private void Form1_Click(object sender, EventArgs e)
-        {
-            var label = (Label)sender;//запомникли на какую надпись нажали
-            var tag = (int[])label.Tag;//определили координаты надписи
-            if (_arr[tag[0], tag[1]].Text != "Kinni")
-            {
-                _arr[tag[0], tag[1]].Text = "Kinni";
-                _arr[tag[0], tag[1]].BackColor = Color.Yellow;
-                ost = true;
-            }
-            else
-            {
-                MessageBox.Show("Koht " + (tag[0] + 1) + (tag[1] + 1) + " juba ostetud!");
-            }
         }
 
         private void Kinni_Click(object sender, EventArgs e)
@@ -196,37 +149,9 @@ namespace cinema
             else { MessageBox.Show("On vaja midagi valida!"); }
         }
 
-        private void Osta_Click(object sender, EventArgs e)
-        {
-            Osta_Click_Func();
-        }
-
-        private void Insert_To_DataBase(int t, int i, int j)
-        {
-            string connectionString;
-            SqlConnection con;
-            connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\source\repos\cinema\cinema\AppData\kino.mdf;Integrated Security=True";
-            con = new SqlConnection(connectionString);
-            try
-            {
-                con.Open();
-                MessageBox.Show("Andmebaas on avatud");
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Andmebaasi avamiseks tekkis viga" + e.Message);
-            }
-            SqlCommand command;
-            string sql = "INSERT INTO Ostetud_Piletid(Id,Rida,Koht) VALUES(" + (t) + "," + (i + 1) + "," + (j + 1) + ")";
-            command = new SqlCommand(sql, con);
-            command.ExecuteNonQuery();
-            command.Dispose();
-            con.Close();
-        }
-
         private void Pilet_saada()
         {
-            string adress = Interaction.InputBox("Sisesta e-mail", "Kuhu saada", "janikavaljataga@gmail.com");
+            string adress = Interaction.InputBox("Sisesta e-mail", "Kuhu saada", "marina.oleinik@tthk.ee");
             try
             {
                 MailMessage mail = new MailMessage();
@@ -254,7 +179,80 @@ namespace cinema
                 MessageBox.Show("Viga");
             }
         }
-    }
 
-     
+        private void Insert_To_DataBase(int t, int i, int j)
+        {
+            string connectionString;
+            SqlConnection con;
+            connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\source\repos\cinema\cinema\AppData\kino.mdf;Integrated Security=True";
+            con = new SqlConnection(connectionString);
+            try
+            {
+                con.Open();
+                MessageBox.Show("Andmebaas on avatud");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Andmebaasi avamiseks tekkis viga" + e.Message);
+            }
+            SqlCommand command;
+            string sql = "INSERT INTO Ostetud_Piletid(Id,Rida,Koht) VALUES(" + (t) + "," + (i + 1) + "," + (j + 1) + ")";
+            command = new SqlCommand(sql, con);
+            command.ExecuteNonQuery();
+            command.Dispose();
+            con.Close();
+        }
+
+        private void Osta_Click(object sender, EventArgs e)
+        {
+            var vastus = MessageBox.Show("Kas oled kindel?",
+                "Appolo küsib", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (vastus == DialogResult.Yes)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (_arr[i, j].BackColor == Color.Yellow)
+                        {
+                            _arr[i, j].BackColor = Color.Red;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (_arr[i, j].BackColor == Color.Yellow)
+                        {
+                            _arr[i, j].Text = " Koht" + (j + 1);
+                            _arr[i, j].BackColor = Color.Green;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        void Form1_Click(object sender, EventArgs e)
+        {
+            var label = (Label)sender;//запомникли на какую надпись нажали
+            var tag = (int[])label.Tag;//определили координаты надписи
+
+            if (_arr[tag[0], tag[1]].Text != "Kinni")
+            {
+                _arr[tag[0], tag[1]].Text = "Kinni";
+                _arr[tag[0], tag[1]].BackColor = Color.Yellow;
+            }
+            else
+            {
+                MessageBox.Show("Koht " + (tag[0] + 1) + (tag[1] + 1) + " juba ostetud!");
+            }
+
+
+        }
+    }
 }

@@ -88,6 +88,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Saalid.resx">
+      <DependentUpon>Saalid.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -110,6 +113,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>kino.mdf</DependentUpon>
     </Content>
+    <Content Include="Image\djoker.jpg" />
+    <Content Include="Image\pobegg.jpg" />
+    <Content Include="Image\pritvorstvo.jpg" />
+    <Content Include="Image\tool.jpg" />
+    <Content Include="Image\toolid.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
