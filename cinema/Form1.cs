@@ -36,18 +36,18 @@ namespace cinema
             {
                 read[i] = new Label();
                 read[i].Text = "Rida " + (i + 1);
-                read[i].Size = new Size(70, 70);
-                read[i].Location = new Point(1, i * 70);
+                read[i].Size = new Size(100, 100);
+                read[i].Location = new Point(1, i * 100);
                 this.Controls.Add(read[i]);
                 for (int j = 0; j < 4; j++)
                 {
                     _arr[i, j] = new Label();
                     _arr[i, j].Text = " Koht" + (j + 1);//"Rida " + i +
-                    _arr[i, j].Size = new Size(70, 70);
+                    _arr[i, j].Size = new Size(100, 100);
                     _arr[i, j].BackColor = Color.Green;
                     _arr[i, j].Image = Image.FromFile("../../Image/tool.jpg");
                     _arr[i, j].BorderStyle = BorderStyle.Fixed3D;
-                    _arr[i, j].Location = new Point(j * 70 + 70, i * 70);
+                    _arr[i, j].Location = new Point(j * 100 + 100, i * 100);
                     this.Controls.Add(_arr[i, j]);
                     _arr[i, j].Tag = new int[] { i, j };
                     _arr[i, j].Click += new System.EventHandler(Form1_Click);
@@ -55,12 +55,12 @@ namespace cinema
             }
             osta = new Button();
             osta.Text = "Osta";
-            osta.Location = new Point(50, 200);
+            osta.Location = new Point(200, 400);
             this.Controls.Add(osta);
             osta.Click += Osta_Click;
             kinni = new Button();
             kinni.Text = "Kinni";
-            kinni.Location = new Point(150, 200);
+            kinni.Location = new Point(100, 400);
             this.Controls.Add(kinni);
             kinni.Click += Kinni_Click;
         }
@@ -116,6 +116,8 @@ namespace cinema
                             {
                                 t++;
                                 _arr[i, j].BackColor = Color.Red;
+                                
+
                                 //Сохранить каждый билет в файл
                                 StreamWriter pilet = new StreamWriter("Pilet" + (t).ToString() + "Rida" + (i + 1).ToString() + "koht" + (j + 1).ToString() + ".txt");
                                 //arr_pilet[t-1]="Pilet" + (t).ToString() + "Rida" + (i+1).ToString() + "koht" + (j+1).ToString() + ".txt";
@@ -215,7 +217,9 @@ namespace cinema
                     {
                         if (_arr[i, j].BackColor == Color.Yellow)
                         {
-                            _arr[i, j].BackColor = Color.Red;
+                            _arr[i, j].BackColor = Color.Transparent;
+                            _arr[i, j].Image = Image.FromFile("../../Image/red.jpg");
+
                         }
                     }
                 }
@@ -246,6 +250,7 @@ namespace cinema
             {
                 _arr[tag[0], tag[1]].Text = "Kinni";
                 _arr[tag[0], tag[1]].BackColor = Color.Yellow;
+                _arr[tag[0], tag[1]].Image = Image.FromFile("../../Image/yellow.jpg");
             }
             else
             {

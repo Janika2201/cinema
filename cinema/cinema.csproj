@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="andmedbass.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,8 +117,10 @@
     <Content Include="Image\djoker.jpg" />
     <Content Include="Image\pobegg.jpg" />
     <Content Include="Image\pritvorstvo.jpg" />
+    <Content Include="Image\red.jpg" />
     <Content Include="Image\tool.jpg" />
     <Content Include="Image\toolid.png" />
+    <Content Include="Image\yellow.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
