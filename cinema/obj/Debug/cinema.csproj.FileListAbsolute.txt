@@ -11,3 +11,16 @@ C:\Users\opilane\source\repos\cinema\cinema\obj\Debug\cinema.pdb
 C:\Users\opilane\source\repos\cinema\cinema\bin\Debug\AppData\kino.mdf
 C:\Users\opilane\source\repos\cinema\cinema\bin\Debug\AppData\kino_log.ldf
 C:\Users\opilane\Source\Repos\cinema\cinema\obj\Debug\cinema.Saalid.resources
+C:\Users\Admin\Source\Repos\cinema\cinema\bin\Debug\AppData\kino.mdf
+C:\Users\Admin\Source\Repos\cinema\cinema\bin\Debug\AppData\kino_log.ldf
+C:\Users\Admin\Source\Repos\cinema\cinema\bin\Debug\cinema.exe.config
+C:\Users\Admin\Source\Repos\cinema\cinema\bin\Debug\cinema.exe
+C:\Users\Admin\Source\Repos\cinema\cinema\bin\Debug\cinema.pdb
+C:\Users\Admin\Source\Repos\cinema\cinema\obj\Debug\cinema.csprojAssemblyReference.cache
+C:\Users\Admin\Source\Repos\cinema\cinema\obj\Debug\cinema.Form1.resources
+C:\Users\Admin\Source\Repos\cinema\cinema\obj\Debug\cinema.Properties.Resources.resources
+C:\Users\Admin\Source\Repos\cinema\cinema\obj\Debug\cinema.Saalid.resources
+C:\Users\Admin\Source\Repos\cinema\cinema\obj\Debug\cinema.csproj.GenerateResource.cache
+C:\Users\Admin\Source\Repos\cinema\cinema\obj\Debug\cinema.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Source\Repos\cinema\cinema\obj\Debug\cinema.exe
+C:\Users\Admin\Source\Repos\cinema\cinema\obj\Debug\cinema.pdb

@@ -116,7 +116,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>kino.mdf</DependentUpon>
     </Content>
+    <Content Include="Image\bob.jpg" />
+    <Content Include="Image\drake.jpg" />
+    <Content Include="Image\icarly.jpg" />
+    <Content Include="Image\img.jpg" />
     <Content Include="Image\joker.jpg" />
+    <Content Include="Image\kasl.jpg" />
     <Content Include="Image\pobegg.jpg" />
     <Content Include="Image\pritvorstvo.jpg" />
     <Content Include="Image\red.jpg" />

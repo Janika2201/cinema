@@ -17,22 +17,19 @@ namespace cinema
 {
     public partial class Form1 : Form
     {
-        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\source\repos\cinema\cinema\AppData\kino.mdf;Integrated Security=True");
+        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Admin\source\repos\cinema\cinema\AppData\kino.mdf;Integrated Security=True");
         private SqlCommand command;
         private SqlDataAdapter adapter;
 
 
-        Image red = Image.FromFile("C:/Users/opilane/source/repos/cinema/cinema/Image/red.jpg");
-        Image yellow = Image.FromFile("C:/Users/opilane/source/repos/cinema/cinema/Image/yellow.jpg");
-        Image tool = Image.FromFile("C:/Users/opilane/source/repos/cinema/cinema/Image/tool.jpg");
+        Image red = Image.FromFile("C:/Users/Admin/source/repos/cinema/cinema/Image/red.jpg");
+        Image yellow = Image.FromFile("C:/Users/Admin/source/repos/cinema/cinema/Image/yellow.jpg");
+        Image tool = Image.FromFile("C:/Users/Admin/source/repos/cinema/cinema/Image/tool.jpg");
 
         Label[,] _arr = new Label[4, 4];
         Label[] read = new Label[4];
         Button osta, kinni;
         public string name, text;
-        StreamWriter to_file;
-        bool ost = false;
-        List<string> arr_pilet;
         public Form1()
         {
             InitializeComponent();
@@ -115,7 +112,7 @@ namespace cinema
                                 connect.Open();
                                 var commandStr = "INSERT Into " + name + "(a,y) values (" + i + "," + j + ")";
                                 using (SqlCommand command = new SqlCommand(commandStr, connect))
-                                    command.ExecuteNonQuery();
+                                command.ExecuteNonQuery();
 
                                 connect.Close();
                             }
@@ -167,13 +164,13 @@ namespace cinema
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error Message");
+                    MessageBox.Show(ex.Message, "Veateade");
                 }
             }
 
-            static DialogResult ShowInputDialog(ref string input)
+            static DialogResult ShowInputDialog(ref string input)//Динамическое создание диалогового окна 
             {
-                System.Drawing.Size size = new System.Drawing.Size(200, 70);
+                System.Drawing.Size size = new System.Drawing.Size(500, 90);
                 Form inputBox = new Form();
 
                 inputBox.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -181,29 +178,29 @@ namespace cinema
                 inputBox.Text = "Email";
 
                 System.Windows.Forms.TextBox textBox = new TextBox();
-                textBox.Size = new System.Drawing.Size(size.Width - 10, 23);
+                textBox.Size = new System.Drawing.Size(size.Width - 50, 50);
                 textBox.Location = new System.Drawing.Point(5, 5);
                 textBox.Text = input;
                 inputBox.Controls.Add(textBox);
 
-                Button okButton = new Button();
-                okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-                okButton.Name = "okButton";
-                okButton.Size = new System.Drawing.Size(75, 23);
-                okButton.Text = "&OK";
-                okButton.Location = new System.Drawing.Point(size.Width - 80 - 80, 39);
-                inputBox.Controls.Add(okButton);
+                Button okbtn = new Button();
+                okbtn.DialogResult = System.Windows.Forms.DialogResult.OK;
+                okbtn.Name = "okButton";
+                okbtn.Size = new System.Drawing.Size(75, 23);
+                okbtn.Text = "&OK";
+                okbtn.Location = new System.Drawing.Point(size.Width - 80 - 80, 39);
+                inputBox.Controls.Add(okbtn);
 
-                Button cancelButton = new Button();
-                cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-                cancelButton.Name = "cancelButton";
-                cancelButton.Size = new System.Drawing.Size(75, 23);
-                cancelButton.Text = "&Cancel";
-                cancelButton.Location = new System.Drawing.Point(size.Width - 80, 39);
-                inputBox.Controls.Add(cancelButton);
+                Button cancelbtn = new Button();
+                cancelbtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+                cancelbtn.Name = "cancelButton";
+                cancelbtn.Size = new System.Drawing.Size(75, 23);
+                cancelbtn.Text = "&Tuhistamine";
+                cancelbtn.Location = new System.Drawing.Point(size.Width - 80, 39);
+                inputBox.Controls.Add(cancelbtn);
 
-                inputBox.AcceptButton = okButton;
-                inputBox.CancelButton = cancelButton;
+                inputBox.AcceptButton = okbtn;
+                inputBox.CancelButton = cancelbtn;
 
                 DialogResult result = inputBox.ShowDialog();
                 input = textBox.Text;
@@ -220,18 +217,16 @@ namespace cinema
 
         void Form1_Click(object sender, EventArgs e)
         {
-            var label = (Label)sender;//запомникли на какую надпись нажали
-            var tag = (int[])label.Tag;//определили координаты надписи
-
-            if (_arr[tag[0], tag[1]].Text != "Kinni")
+            int[] I = { }, J = { };
+            var label = (Label)sender;
+            var tag = (int[])label.Tag;
+            if (_arr[tag[0], tag[1]].Image == red)
             {
-                _arr[tag[0], tag[1]].Text = "Kinni";
-                _arr[tag[0], tag[1]].BackColor = Color.Yellow;
-                _arr[tag[0], tag[1]].Image = yellow;
+                MessageBox.Show("Kas see koht on kinni!");
             }
             else
             {
-                MessageBox.Show("Koht " + (tag[0] + 1) + (tag[1] + 1) + " juba ostetud!");
+                _arr[tag[0], tag[1]].Image = yellow;
             }
 
 
