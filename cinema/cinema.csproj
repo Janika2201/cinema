@@ -96,6 +96,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Saalid.resx">
       <DependentUpon>Saalid.cs</DependentUpon>
@@ -123,17 +124,23 @@
       <DependentUpon>kino.mdf</DependentUpon>
     </Content>
     <Content Include="Image\bob.jpg" />
+    <Content Include="Image\bord.jpg" />
     <Content Include="Image\drake.jpg" />
+    <Content Include="Image\fi.jpg" />
     <Content Include="Image\icarly.jpg" />
     <Content Include="Image\img.jpg" />
     <Content Include="Image\joker.jpg" />
+    <Content Include="Image\kar.jpg" />
+    <Content Include="Image\karl1.jpg" />
     <Content Include="Image\kasl.jpg" />
     <Content Include="Image\pobegg.jpg" />
     <Content Include="Image\pritvorstvo.jpg" />
     <Content Include="Image\red.jpg" />
-    <Content Include="Image\tool.jpg" />
+    <Content Include="Image\tool1.jpg" />
     <Content Include="Image\toolid.png" />
     <Content Include="Image\yellow.jpg" />
+    <None Include="Resources\fi.jpg" />
+    <None Include="Resources\bord.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

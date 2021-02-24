@@ -24,12 +24,21 @@ namespace cinema
         private PictureBox drake = new PictureBox();
         private PictureBox bob = new PictureBox();
         private static Image Image;
+        private Label label = new Label();
+        
 
         public Saalid()
         {
             InitializeComponent();
+            BackgroundImageLayout = ImageLayout.Stretch;
+            BackgroundImage = Image.FromFile("../../Image/karl1.jpg");
 
-            BackgroundImage = Image.FromFile("../../Image/img.jpg");
+            /*
+            label.Location = new System.Drawing.Point(80, 10);
+            label.Size = new Size(50, 50);
+            label.Text = "Жанр: Трейлер";
+            this.Controls.Add(label);
+            */
 
             pi.BackColor = Color.Gray;
             pi.Location = new System.Drawing.Point(90, 25);
@@ -55,7 +64,7 @@ namespace cinema
             drake.BackColor = Color.Gray;
             drake.Location = new System.Drawing.Point(90, 400);
             drake.Image = Image.FromFile("../../Image/drake.jpg");
-            drake.Size = new System.Drawing.Size(230, 330);
+            drake.Size = new System.Drawing.Size(230, 320);
             this.Controls.Add(drake);
             drake.Click += Drake_Click;
 
@@ -70,12 +79,12 @@ namespace cinema
             bob.BackColor = Color.Gray;
             bob.Location = new System.Drawing.Point(700, 400);
             bob.Image = Image.FromFile("../../Image/bob.jpg");
-            bob.Size = new System.Drawing.Size(230, 330);
+            bob.Size = new System.Drawing.Size(210, 330);
             this.Controls.Add(bob);
             bob.Click += Bob_Click;
         }
 
-        private void Bob_Click(object sender, EventArgs e)
+        private void Bob_Click(object sender, EventArgs e)//берем фильм из базы данных и он открывает нам другую форму 
         {
             Form1 form1 = new Form1("Bobi");
             form1.Show();

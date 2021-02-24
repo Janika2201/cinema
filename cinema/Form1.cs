@@ -23,35 +23,39 @@ namespace cinema
         Label[,] _arr = new Label[4, 4];
         Label[] read = new Label[4];
         string[,] arri = new string[4, 4] ;
-        Button btnosta, kinni;
-        StreamWriter to_file;
+        Button osta, kinni;
         bool ost = false;
         public string imagge = "";
-        Image red = Image.FromFile("C:/Users/Admin/source/repos/cinema/cinema/Image/red.jpg");
-        Image yellow = Image.FromFile("C:/Users/Admin/source/repos/cinema/cinema/Image/yellow.jpg");
-        Image tool = Image.FromFile("C:/Users/Admin/source/repos/cinema/cinema/Image/tool.jpg");
+        Image red = Image.FromFile("C:/Users/Admin/source/repos/cinema/cinema/Image/red.jpg");//пути к картинке 
+        Image yellow = Image.FromFile("C:/Users/Admin/source/repos/cinema/cinema/Image/yellow.jpg");//пути к картинке 
+        Image tool = Image.FromFile("C:/Users/Admin/source/repos/cinema/cinema/Image/tool1.jpg");//пути к картинке 
         public List<string> attachments = new List<string>();
        
-        public string name, text;
+        public string filmid, text;
         public Form1()
         {
             InitializeComponent();
+           
         }
 
-
+        
         private void Form1_Load(object sender, EventArgs e)
         {
             for (int i = 0; i < 4; i++)
             {
                 read[i] = new Label();
                 read[i].Text = "Rida " + (i + 1);
+                
+                read[i].BackColor = Color.White;
                 read[i].Size = new Size(100, 100);
                 read[i].Location = new Point(1, i * 100);
+               
                 this.Controls.Add(read[i]);
                 for (int j = 0; j < 4; j++)
                 {
                     _arr[i, j] = new Label();
                     _arr[i, j].Size = new Size(100, 100);
+                    
                     _arr[i, j].BackColor = Color.Green;
                     _arr[i, j].Image = tool;
 
@@ -59,7 +63,7 @@ namespace cinema
                     if (connect.State == ConnectionState.Closed)
                     {
                         connect.Open();
-                        var commandStr = "SELECT a,y from " + name;
+                        var commandStr = "SELECT a,y from " + filmid;//берем значение ряд и место 
                         SqlCommand command = new SqlCommand(commandStr, connect);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -89,71 +93,36 @@ namespace cinema
             */
 
             kinni = new Button();
-            kinni.Text = "Osta Koht";
+            kinni.Text = "Osta Koht";//покупаем
             kinni.Location = new Point(100, 400);
             kinni.Size = new Size(100, 50);
+            kinni.BackColor = Color.Black;
+            kinni.ForeColor = Color.AliceBlue;
             this.Controls.Add(kinni);
             kinni.Click += Kinni_Click;
 
-            /*
-            btnosta = new Button();
-            btnosta.Text = "Kinni";
-            btnosta.Location = new Point(50, 200);
-            btnosta.Click += Btnosta_Click;
-            */
+
+            osta = new Button();
+            osta.Text = "Kinni";//
+            osta.Location = new Point(400, 400);
+            osta.Size = new Size(100, 50);
+            osta.BackColor = Color.Red;
+            osta.ForeColor = Color.AliceBlue;
+            this.Controls.Add(osta);
+            osta.Click += Osta_Click;
+
         }
 
-        private void Btnosta_Click(object sender, EventArgs e)
+        private void Osta_Click(object sender, EventArgs e)
         {
-            Osta_Clik_Func();
+            this.Close();//закрываем форму
         }
 
-        void Osta_Clik_Func()
+        
+
+        private void Kinni_Click(object sender, EventArgs e)//бронируем билет 
         {
-            if (ost == true)
-            {
-
-                DialogResult result2 = MessageBox.Show("Вы точно хотите купить эти билеты?",
-                "Покупка билета",
-                MessageBoxButtons.YesNoCancel,
-                MessageBoxIcon.Question);
-                if (result2 == DialogResult.Yes)
-                {
-                    for (int i = 0; i < 4; i++)
-                    {
-                        for (int j = 0; j < 4; j++)
-                        {
-                            if (_arr[i, j].Image == yellow)
-                            {
-                                _arr[i, j].Image = red;
-
-
-                            }
-                        }
-                    }
-                }
-                if (result2 == DialogResult.No)
-                {
-
-                    for (int i = 0; i < 4; i++)
-                    {
-                        for (int j = 0; j < 4; j++)
-                        {
-                            if (_arr[i, j].Image == yellow)
-                            {
-                                _arr[i, j].Image = tool;
-                                _arr[i, j].Text = "" + (j + 1);
-                            }
-
-                        }
-                    }
-                }
-            }
-        }
-
-        private void Kinni_Click(object sender, EventArgs e)
-        {
-            var vastus = MessageBox.Show("Are you sure of your choice", "Cinema asks", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var vastus = MessageBox.Show("Kas olete oma valikus kindel", "Küsib kino", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (vastus == DialogResult.Yes)
             {
                 int t = 0;
@@ -165,12 +134,12 @@ namespace cinema
                         if (_arr[i, j].Image == yellow)
                         {
                             t++;
-                            arri[i, j] = "busy";
+                            arri[i, j] = "busy";//место занято и когда выбираешь место оно берется только то , что ты выбрал
                             _arr[i, j].Image = red;
                             if (connect.State == ConnectionState.Closed)
                             {
                                 connect.Open();
-                                var commandStr = "INSERT Into " + name + "(a,y) values (" + i + "," + j + ")";
+                                var commandStr = "INSERT Into " + filmid + "(a,y) values (" + i + "," + j + ")";//ряд и место
                                 using (SqlCommand command = new SqlCommand(commandStr, connect))
                                     command.ExecuteNonQuery();
 
@@ -204,7 +173,7 @@ namespace cinema
                     {
                         for (int j = 0; j < 4; j++)
                         {
-                            if (arri[i, j] == "busy")
+                            if (arri[i, j] == "busy")//место уже занято
                             {
                                 text += "Rida: " + (i + 1) + "; Koht: " + (j + 1) + "<br>";
                             }
@@ -215,14 +184,14 @@ namespace cinema
                     ShowInputDialog(ref emaill);
                     MailAddress from = new MailAddress("aani66407@gmail.com", "COCA-COLA PLAZA");
                     MailAddress to = new MailAddress(emaill);
-                    MailMessage m = new MailMessage(from, to);
-                    m.Subject = "Pilets";
-                    m.Body = "<h1>Teie pilet</h1>" + "<h1>Filmi nimetus:</h1>" + name + "<h2>Koht:</h2>" + text;
-                    m.IsBodyHtml = true;
+                    MailMessage mael = new MailMessage(from, to);
+                    mael.Subject = "COCA-COLA PLAZA";
+                    mael.Body = "<h1>Teie pilet</h1>" + "<h1>Pealkiri oma valitud filmi:</h1>" + filmid + "<h2>Teie koht:</h2>" + text;
+                    mael.IsBodyHtml = true;
                     SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
                     smtp.Credentials = new NetworkCredential("aani66407@gmail.com", "janika12345");
                     smtp.EnableSsl = true;
-                    smtp.Send(m);
+                    smtp.Send(mael);
                 }
                 catch (Exception ex)
                 {
@@ -272,7 +241,7 @@ namespace cinema
 
         public Form1(string Name)
         {
-            name = Name;
+            filmid = Name;
             InitializeComponent();
 
         }
