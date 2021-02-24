@@ -20,15 +20,18 @@ namespace cinema
         SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Admin\source\repos\cinema\cinema\AppData\kino.mdf;Integrated Security=True");
         private SqlCommand command;
         private SqlDataAdapter adapter;
-
-
+        Label[,] _arr = new Label[4, 4];
+        Label[] read = new Label[4];
+        string[,] arri = new string[4, 4] ;
+        Button btnosta, kinni;
+        StreamWriter to_file;
+        bool ost = false;
+        public string imagge = "";
         Image red = Image.FromFile("C:/Users/Admin/source/repos/cinema/cinema/Image/red.jpg");
         Image yellow = Image.FromFile("C:/Users/Admin/source/repos/cinema/cinema/Image/yellow.jpg");
         Image tool = Image.FromFile("C:/Users/Admin/source/repos/cinema/cinema/Image/tool.jpg");
-
-        Label[,] _arr = new Label[4, 4];
-        Label[] read = new Label[4];
-        Button osta, kinni;
+        public List<string> attachments = new List<string>();
+       
         public string name, text;
         public Form1()
         {
@@ -86,15 +89,71 @@ namespace cinema
             */
 
             kinni = new Button();
-            kinni.Text = "Kinni";
+            kinni.Text = "Osta Koht";
             kinni.Location = new Point(100, 400);
+            kinni.Size = new Size(100, 50);
             this.Controls.Add(kinni);
             kinni.Click += Kinni_Click;
+
+            /*
+            btnosta = new Button();
+            btnosta.Text = "Kinni";
+            btnosta.Location = new Point(50, 200);
+            btnosta.Click += Btnosta_Click;
+            */
+        }
+
+        private void Btnosta_Click(object sender, EventArgs e)
+        {
+            Osta_Clik_Func();
+        }
+
+        void Osta_Clik_Func()
+        {
+            if (ost == true)
+            {
+
+                DialogResult result2 = MessageBox.Show("Вы точно хотите купить эти билеты?",
+                "Покупка билета",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Question);
+                if (result2 == DialogResult.Yes)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if (_arr[i, j].Image == yellow)
+                            {
+                                _arr[i, j].Image = red;
+
+
+                            }
+                        }
+                    }
+                }
+                if (result2 == DialogResult.No)
+                {
+
+                    for (int i = 0; i < 4; i++)
+                    {
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if (_arr[i, j].Image == yellow)
+                            {
+                                _arr[i, j].Image = tool;
+                                _arr[i, j].Text = "" + (j + 1);
+                            }
+
+                        }
+                    }
+                }
+            }
         }
 
         private void Kinni_Click(object sender, EventArgs e)
         {
-            var vastus = MessageBox.Show("Kas olete oma valikus kindel", "Küsib kino", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var vastus = MessageBox.Show("Are you sure of your choice", "Cinema asks", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (vastus == DialogResult.Yes)
             {
                 int t = 0;
@@ -106,20 +165,21 @@ namespace cinema
                         if (_arr[i, j].Image == yellow)
                         {
                             t++;
+                            arri[i, j] = "busy";
                             _arr[i, j].Image = red;
                             if (connect.State == ConnectionState.Closed)
                             {
                                 connect.Open();
                                 var commandStr = "INSERT Into " + name + "(a,y) values (" + i + "," + j + ")";
                                 using (SqlCommand command = new SqlCommand(commandStr, connect))
-                                command.ExecuteNonQuery();
+                                    command.ExecuteNonQuery();
 
                                 connect.Close();
                             }
                         }
                     }
                 }
-                mail();
+                sendemail();
             }
             else
             {
@@ -129,20 +189,22 @@ namespace cinema
                     {
                         if (_arr[i, j].Image == yellow)
                         {
+                           
                             _arr[i, j].Image = tool;
                         }
                     }
                 }
             }
-            void mail()
+            void sendemail()
             {
                 try
                 {
+                    text = "";
                     for (int i = 0; i < 4; i++)
                     {
                         for (int j = 0; j < 4; j++)
                         {
-                            if (_arr[i, j].Image == red)
+                            if (arri[i, j] == "busy")
                             {
                                 text += "Rida: " + (i + 1) + "; Koht: " + (j + 1) + "<br>";
                             }
@@ -151,16 +213,16 @@ namespace cinema
                     }
                     string emaill = "";
                     ShowInputDialog(ref emaill);
-                    MailAddress from = new MailAddress("janikaval2201@gmail.com", "Pilets");
+                    MailAddress from = new MailAddress("aani66407@gmail.com", "COCA-COLA PLAZA");
                     MailAddress to = new MailAddress(emaill);
-                    MailMessage emailiii = new MailMessage(from, to);
-                    emailiii.Subject = "Pilets";
-                    emailiii.Body = "<h1>Teie pilet</h1>" + "<h1>Filmi nimetus:</h1>" + name + "<h2>Koht:</h2>" + text;
-                    emailiii.IsBodyHtml = true;
+                    MailMessage m = new MailMessage(from, to);
+                    m.Subject = "Pilets";
+                    m.Body = "<h1>Teie pilet</h1>" + "<h1>Filmi nimetus:</h1>" + name + "<h2>Koht:</h2>" + text;
+                    m.IsBodyHtml = true;
                     SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-                    smtp.Credentials = new NetworkCredential("janikaval2201@gmail.com", "janika1234555");
+                    smtp.Credentials = new NetworkCredential("aani66407@gmail.com", "janika12345");
                     smtp.EnableSsl = true;
-                    smtp.Send(emailiii);
+                    smtp.Send(m);
                 }
                 catch (Exception ex)
                 {
@@ -168,9 +230,9 @@ namespace cinema
                 }
             }
 
-            static DialogResult ShowInputDialog(ref string input)//Динамическое создание диалогового окна 
+            static DialogResult ShowInputDialog(ref string input)
             {
-                System.Drawing.Size size = new System.Drawing.Size(500, 90);
+                System.Drawing.Size size = new System.Drawing.Size(200, 70);
                 Form inputBox = new Form();
 
                 inputBox.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -178,29 +240,29 @@ namespace cinema
                 inputBox.Text = "Email";
 
                 System.Windows.Forms.TextBox textBox = new TextBox();
-                textBox.Size = new System.Drawing.Size(size.Width - 50, 50);
+                textBox.Size = new System.Drawing.Size(size.Width - 10, 23);
                 textBox.Location = new System.Drawing.Point(5, 5);
                 textBox.Text = input;
                 inputBox.Controls.Add(textBox);
 
-                Button okbtn = new Button();
-                okbtn.DialogResult = System.Windows.Forms.DialogResult.OK;
-                okbtn.Name = "okButton";
-                okbtn.Size = new System.Drawing.Size(75, 23);
-                okbtn.Text = "&OK";
-                okbtn.Location = new System.Drawing.Point(size.Width - 80 - 80, 39);
-                inputBox.Controls.Add(okbtn);
+                Button okButton = new Button();
+                okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+                okButton.Name = "okButton";
+                okButton.Size = new System.Drawing.Size(75, 23);
+                okButton.Text = "&OK";
+                okButton.Location = new System.Drawing.Point(size.Width - 80 - 80, 39);
+                inputBox.Controls.Add(okButton);
 
-                Button cancelbtn = new Button();
-                cancelbtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-                cancelbtn.Name = "cancelButton";
-                cancelbtn.Size = new System.Drawing.Size(75, 23);
-                cancelbtn.Text = "&Tuhistamine";
-                cancelbtn.Location = new System.Drawing.Point(size.Width - 80, 39);
-                inputBox.Controls.Add(cancelbtn);
+                Button cancelButton = new Button();
+                cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+                cancelButton.Name = "cancelButton";
+                cancelButton.Size = new System.Drawing.Size(75, 23);
+                cancelButton.Text = "&Cancel";
+                cancelButton.Location = new System.Drawing.Point(size.Width - 80, 39);
+                inputBox.Controls.Add(cancelButton);
 
-                inputBox.AcceptButton = okbtn;
-                inputBox.CancelButton = cancelbtn;
+                inputBox.AcceptButton = okButton;
+                inputBox.CancelButton = cancelButton;
 
                 DialogResult result = inputBox.ShowDialog();
                 input = textBox.Text;

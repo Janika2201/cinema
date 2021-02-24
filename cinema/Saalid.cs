@@ -77,7 +77,7 @@ namespace cinema
 
         private void Bob_Click(object sender, EventArgs e)
         {
-            Form1 form1 = new Form1("Bob");
+            Form1 form1 = new Form1("Bobi");
             form1.Show();
         }
 
