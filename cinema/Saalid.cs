@@ -86,7 +86,7 @@ namespace cinema
 
         private void Bob_Click(object sender, EventArgs e)//берем фильм из базы данных и он открывает нам другую форму 
         {
-            Form1 form1 = new Form1("Bobi");
+            Form1 form1 = new Form1("Bob");
             form1.Show();
         }
 

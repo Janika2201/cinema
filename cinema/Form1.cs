@@ -35,11 +35,11 @@ namespace cinema
         public Form1()
         {
             InitializeComponent();
-           
+            BackColor = Color.Gray;
         }
 
         
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)//залы
         {
             for (int i = 0; i < 4; i++)
             {
@@ -69,7 +69,7 @@ namespace cinema
                         {
                             while (reader.Read())
                             {
-                                if (Convert.ToInt32(reader["a"]) == i && Convert.ToInt32(reader["y"]) == j)
+                                if (Convert.ToInt32(reader["a"]) == i && Convert.ToInt32(reader["y"]) == j)//ряд и место
                                 {
                                     _arr[i, j].Image = red;
                                 }
@@ -103,7 +103,7 @@ namespace cinema
 
 
             osta = new Button();
-            osta.Text = "Kinni";//
+            osta.Text = "Kinni";//закрыть
             osta.Location = new Point(400, 400);
             osta.Size = new Size(100, 50);
             osta.BackColor = Color.Red;
@@ -159,7 +159,7 @@ namespace cinema
                         if (_arr[i, j].Image == yellow)
                         {
                            
-                            _arr[i, j].Image = tool;
+                            _arr[i, j].Image = tool;//обычный стул
                         }
                     }
                 }
@@ -180,12 +180,13 @@ namespace cinema
 
                         }
                     }
-                    string emaill = "";
+                    string emaill = "";//отправляем билет на почту
                     ShowInputDialog(ref emaill);
                     MailAddress from = new MailAddress("aani66407@gmail.com", "COCA-COLA PLAZA");
                     MailAddress to = new MailAddress(emaill);
                     MailMessage mael = new MailMessage(from, to);
                     mael.Subject = "COCA-COLA PLAZA";
+                    //тело
                     mael.Body = "<h1>Teie pilet</h1>" + "<h1>Pealkiri oma valitud filmi:</h1>" + filmid + "<h2>Teie koht:</h2>" + text;
                     mael.IsBodyHtml = true;
                     SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
@@ -199,7 +200,7 @@ namespace cinema
                 }
             }
 
-            static DialogResult ShowInputDialog(ref string input)
+            static DialogResult ShowInputDialog(ref string input)//Dynamic creation of a dialog box. You can customize to your taste
             {
                 System.Drawing.Size size = new System.Drawing.Size(200, 70);
                 Form inputBox = new Form();
@@ -239,7 +240,7 @@ namespace cinema
             }
         }
 
-        public Form1(string Name)
+        public Form1(string Name)//открывается форма с фильмом
         {
             filmid = Name;
             InitializeComponent();
@@ -254,6 +255,7 @@ namespace cinema
             if (_arr[tag[0], tag[1]].Image == red)
             {
                 MessageBox.Show("Kas see koht on kinni!");
+                /*Место уже занято*/
             }
             else
             {
