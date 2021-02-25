@@ -25,7 +25,6 @@ namespace cinema
         string[,] arri = new string[8, 8] ;
         Button osta, kinni;
         bool ost = false;
-        public string imagge = "";
         Image red = Image.FromFile("C:/Users/opilane/source/repos/valjatagacinema/cinema/Image/red.jpg");//пути к картинке 
         Image yellow = Image.FromFile("C:/Users/opilane/source/repos/valjatagacinema/cinema/Image/yellow.jpg");//пути к картинке 
         Image tool = Image.FromFile("C:/Users/opilane/source/repos/valjatagacinema/cinema/Image/tool1.jpg");//пути к картинке 
