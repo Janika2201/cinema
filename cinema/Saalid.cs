@@ -24,24 +24,24 @@ namespace cinema
         private PictureBox drake = new PictureBox();
         private PictureBox bob = new PictureBox();
         private static Image Image;
-        private LinkLabel label3 = new LinkLabel();
-        private LinkLabel label = new LinkLabel();
-        private LinkLabel label2 = new LinkLabel();
+        private LinkLabel label3 = new LinkLabel();//открывается ссылка на фильм и можно о нем все узнать прежде чем идти в кино
+        private LinkLabel label = new LinkLabel();//открывается ссылка на фильм и можно о нем все узнать прежде чем идти в кино
+        private LinkLabel label2 = new LinkLabel();//открывается ссылка на фильм и можно о нем все узнать прежде чем идти в кино
         /*private Label label3 = new Label();*/
-        private LinkLabel label4 = new LinkLabel();
-        private LinkLabel label5 = new LinkLabel();
-        private LinkLabel label6 = new LinkLabel();
-        
+        private LinkLabel label4 = new LinkLabel();//открывается ссылка на фильм и можно о нем все узнать прежде чем идти в кино
+        private LinkLabel label5 = new LinkLabel();//открывается ссылка на фильм и можно о нем все узнать прежде чем идти в кино
+        private LinkLabel label6 = new LinkLabel();//открывается ссылка на фильм и можно о нем все узнать прежде чем идти в кино
+
 
 
         public Saalid()
         {
             InitializeComponent();
             BackgroundImageLayout = ImageLayout.Stretch;
-            BackgroundImage = Image.FromFile("../../Image/karl1.jpg");
+            BackgroundImage = Image.FromFile("../../Image/karl1.jpg");//фон
 
 
-            label.Location = new System.Drawing.Point(145, 9);
+            label.Location = new System.Drawing.Point(145, 9);//lanel который открывает ссылку на фильм
             label.Size = new Size(48, 13);
             label.Text = "Джокер";
             this.Controls.Add(label);
@@ -122,7 +122,7 @@ namespace cinema
             bob.Click += Bob_Click;
         }
 
-        private void Label6_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void Label6_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)//ссылка которая показывает все о фильме
         {
             System.Diagnostics.Process.Start("https://www.kinopoisk.ru/film/944043/"); 
         }

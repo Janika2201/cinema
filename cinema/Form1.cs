@@ -17,18 +17,18 @@ namespace cinema
 {
     public partial class Form1 : Form
     {
-        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Admin\source\repos\cinema\cinema\AppData\kino.mdf;Integrated Security=True");
+        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\opilane\source\repos\valjatagacinema\cinema\AppData\kino.mdf;Integrated Security=True");
         private SqlCommand command;
         private SqlDataAdapter adapter;
-        Label[,] _arr = new Label[4, 4];
-        Label[] read = new Label[4];
-        string[,] arri = new string[4, 4] ;
+        Label[,] _arr = new Label[8, 8];//сделано обычный зал из 8 рядов и мест
+        Label[] read = new Label[8];//сделано обычный зал из 8 рядов и мест
+        string[,] arri = new string[8, 8] ;
         Button osta, kinni;
         bool ost = false;
         public string imagge = "";
-        Image red = Image.FromFile("C:/Users/Admin/source/repos/cinema/cinema/Image/red.jpg");//пути к картинке 
-        Image yellow = Image.FromFile("C:/Users/Admin/source/repos/cinema/cinema/Image/yellow.jpg");//пути к картинке 
-        Image tool = Image.FromFile("C:/Users/Admin/source/repos/cinema/cinema/Image/tool1.jpg");//пути к картинке 
+        Image red = Image.FromFile("C:/Users/opilane/source/repos/valjatagacinema/cinema/Image/red.jpg");//пути к картинке 
+        Image yellow = Image.FromFile("C:/Users/opilane/source/repos/valjatagacinema/cinema/Image/yellow.jpg");//пути к картинке 
+        Image tool = Image.FromFile("C:/Users/opilane/source/repos/valjatagacinema/cinema/Image/tool1.jpg");//пути к картинке 
         public List<string> attachments = new List<string>();
        
         public string filmid, text;
@@ -41,7 +41,7 @@ namespace cinema
         
         private void Form1_Load(object sender, EventArgs e)//залы
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 8; i++)
             {
                 read[i] = new Label();
                 read[i].Text = "Rida " + (i + 1);
@@ -51,7 +51,7 @@ namespace cinema
                 read[i].Location = new Point(1, i * 100);
                
                 this.Controls.Add(read[i]);
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < 8; j++)
                 {
                     _arr[i, j] = new Label();
                     _arr[i, j].Size = new Size(100, 100);
@@ -94,7 +94,7 @@ namespace cinema
 
             kinni = new Button();
             kinni.Text = "Osta Koht";//покупаем
-            kinni.Location = new Point(100, 400);
+            kinni.Location = new Point(50, 815);
             kinni.Size = new Size(100, 50);
             kinni.BackColor = Color.Black;
             kinni.ForeColor = Color.AliceBlue;
@@ -104,7 +104,7 @@ namespace cinema
 
             osta = new Button();
             osta.Text = "Kinni";//закрыть
-            osta.Location = new Point(400, 400);
+            osta.Location = new Point(800, 815);
             osta.Size = new Size(100, 50);
             osta.BackColor = Color.Red;
             osta.ForeColor = Color.AliceBlue;
@@ -127,9 +127,9 @@ namespace cinema
             {
                 int t = 0;
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 8; i++)
                 {
-                    for (int j = 0; j < 4; j++)
+                    for (int j = 0; j < 8; j++)
                     {
                         if (_arr[i, j].Image == yellow)
                         {
@@ -152,9 +152,9 @@ namespace cinema
             }
             else
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 8; i++)
                 {
-                    for (int j = 0; j < 4; j++)
+                    for (int j = 0; j < 8; j++)
                     {
                         if (_arr[i, j].Image == yellow)
                         {
@@ -169,9 +169,9 @@ namespace cinema
                 try
                 {
                     text = "";
-                    for (int i = 0; i < 4; i++)
+                    for (int i = 0; i < 8; i++)
                     {
-                        for (int j = 0; j < 4; j++)
+                        for (int j = 0; j < 8; j++)
                         {
                             if (arri[i, j] == "busy")//место уже занято
                             {

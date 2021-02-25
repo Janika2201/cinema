@@ -37,3 +37,16 @@ C:\Users\Admin\source\repos\JANIKAKINO\cinema\obj\Debug\cinema.csproj.GenerateRe
 C:\Users\Admin\source\repos\JANIKAKINO\cinema\obj\Debug\cinema.csproj.CoreCompileInputs.cache
 C:\Users\Admin\source\repos\JANIKAKINO\cinema\obj\Debug\cinema.exe
 C:\Users\Admin\source\repos\JANIKAKINO\cinema\obj\Debug\cinema.pdb
+C:\Users\opilane\source\repos\valjatagacinema\cinema\bin\Debug\AppData\kino.mdf
+C:\Users\opilane\source\repos\valjatagacinema\cinema\bin\Debug\AppData\kino_log.ldf
+C:\Users\opilane\source\repos\valjatagacinema\cinema\bin\Debug\cinema.exe.config
+C:\Users\opilane\source\repos\valjatagacinema\cinema\bin\Debug\cinema.exe
+C:\Users\opilane\source\repos\valjatagacinema\cinema\bin\Debug\cinema.pdb
+C:\Users\opilane\source\repos\valjatagacinema\cinema\obj\Debug\cinema.csprojAssemblyReference.cache
+C:\Users\opilane\source\repos\valjatagacinema\cinema\obj\Debug\cinema.Form1.resources
+C:\Users\opilane\source\repos\valjatagacinema\cinema\obj\Debug\cinema.Properties.Resources.resources
+C:\Users\opilane\source\repos\valjatagacinema\cinema\obj\Debug\cinema.Saalid.resources
+C:\Users\opilane\source\repos\valjatagacinema\cinema\obj\Debug\cinema.csproj.GenerateResource.cache
+C:\Users\opilane\source\repos\valjatagacinema\cinema\obj\Debug\cinema.csproj.CoreCompileInputs.cache
+C:\Users\opilane\source\repos\valjatagacinema\cinema\obj\Debug\cinema.exe
+C:\Users\opilane\source\repos\valjatagacinema\cinema\obj\Debug\cinema.pdb
